@@ -22,7 +22,7 @@ public class Tuition
 	}
 	
 	public Tuition(int id, String firstName, String lastName, String email,
-			String dateOfBirth, double numHours, double totalTuition)
+			String dateOfBirth, double numHours)
 	{
 		this.id = id;
 		this.firstName = firstName;
@@ -30,7 +30,7 @@ public class Tuition
 		this.email = email;
 		this.dateOfBirth = dateOfBirth;
 		this.numHours = numHours;
-		this.totalTuition = totalTuition;
+		this.totalTuition = 0;
 	}
 
 	public int getId()
@@ -107,8 +107,16 @@ public class Tuition
 	@Override
 	public String toString()
 	{
-		// TODO Auto-generated method stub
-		return super.toString();
+		StringBuilder s = new StringBuilder();
+		
+		s.append("ID: " + this.id + "\n");
+		s.append("First name: " + this.firstName + "\n");
+		s.append("Last name: " + this.lastName + "\n");
+		s.append("Email: " + this.email + "\n");
+		s.append("Date of birth: " + this.dateOfBirth + "\n");
+		s.append("Credit hours: " + this.numHours + "\n");
+		
+		return s.toString();
 	}
 
 	
