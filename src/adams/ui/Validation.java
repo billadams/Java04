@@ -1,8 +1,9 @@
 package adams.ui;
 
+import java.time.*;
 import java.util.Scanner;
-import java.text.NumberFormat;
-import java.math.*;
+
+import adams.business.DateOutOfRangeException;
 
 public class Validation
 {
@@ -28,12 +29,14 @@ public class Validation
     {
         boolean isValid = false;
         int i = 0;
-        while (isValid == false) {
+        while (isValid == false) 
+        {
             System.out.print(prompt);
             try {
                 i = Integer.parseInt(sc.nextLine());
                 isValid = true;
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) 
+            {
                 System.out.println("Error! Invalid integer value. Try again.");
             }
         }
@@ -44,15 +47,19 @@ public class Validation
     {
         int i = 0;
         boolean isValid = false;
-        while (isValid == false) {
+        while (isValid == false) 
+        {
             i = getInt(prompt);
-            if (i <= min) {
+            if (i <= min) 
+            {
                 System.out.println(
                         "Error! Number must be greater than " + min);
-            } else if (i >= max) {
+            } else if (i >= max) 
+            {
                 System.out.println(
                         "Error! Number must be less than " + max);
-            } else {
+            } else 
+            {
                 isValid = true;
             }
         }
@@ -63,12 +70,15 @@ public class Validation
     {
         boolean isValid = false;
         double d = 0;
-        while (isValid == false) {
+        while (isValid == false) 
+        {
             System.out.print(prompt);
-            try {
+            try 
+            {
                 d = Double.parseDouble(sc.nextLine());
                 isValid = true;                
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) 
+            {
                 System.out.println("Error! Invalid decimal value. Try again.");
             }
         }
@@ -79,12 +89,15 @@ public class Validation
     {
         double d = 0;
         boolean isValid = false;
-        while (isValid == false) {
+        while (isValid == false) 
+        {
             d = getDouble(prompt);
-            if (d <= min) {
+            if (d <= min) 
+            {
                 System.out.println(
                         "Error! Number must be greater than " + min);
-            } else if (d >= max) {
+            } else if (d >= max) 
+            {
                 System.out.println(
                         "Error! Number must be less than " + max);
             } else {
@@ -93,20 +106,44 @@ public class Validation
         }
         return d;
     }
-
-   public static BigDecimal formatRound(double number)
-   {
-	    BigDecimal decimalRound  = new BigDecimal(number);    
-	    return decimalRound = decimalRound.setScale(2, RoundingMode.HALF_UP);		
-   }
- 
- 	public static String formatAndRound(double number)
- 	{
-	 	NumberFormat num = NumberFormat.getCurrencyInstance();//dollar sign
-	 	//NumberFormat num = NumberFormat.getNumberInstance();//no dollar sign
-
-		BigDecimal decimalRound  = new BigDecimal(number);
-		return num.format(decimalRound = decimalRound.setScale(2, RoundingMode.HALF_UP));
+    
+    public static LocalDate getDate(String prompt)
+    {
+    	String[] columns;
+    	String dateEntered = "";
+    	LocalDate date = null;
+    	
+    	boolean isValid = false;
+    	while (isValid == false)
+    	{
+    		System.out.print(prompt);
+    		dateEntered = sc.nextLine();
+    		try
+    		{	
+    			columns = dateEntered.split("/");
+    			int i = Integer.parseInt(columns[2]);
+    			if (i < 16)
+    			{
+    				throw new DateOutOfRangeException();
+    			}
+	    		date = LocalDate.parse(20 + columns[2] + "-" + columns[0] + "-" + columns[1]);
+	    		
+	    		isValid = true;
+    		} catch (DateTimeException e)
+    		{
+    			System.out.println("Error! Please enter a valid date.");
+    		} catch (ArrayIndexOutOfBoundsException e)
+    		{
+    			System.out.println("Error! Please enter the date in the correct format.");
+    		}
+    		
+    	}
+    	   	
+    	return date;
+    	
+//    	String[] months = { "January", "February", "March", "April", "May", "June", 
+//    			            "July", "August", "September", "October", "November", "December" };
+//    	
+//    	int[] daysInMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     }
-	 
  }

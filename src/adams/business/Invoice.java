@@ -25,10 +25,12 @@ public class Invoice
 		this.lineItems.add(lineItem);
 	}
 	
-	public double getTotal(LineItem lineItem)
+	public double getTotal(double hours)
 	{
-		double tuitionTotal = lineItem.getTotal(COST_CREDIT_HOUR, STUDENT_SERVICE_FEE, GRADUATION_FEE);
-		
-		return tuitionTotal;
+		double total =  hours * COST_CREDIT_HOUR;
+			   total += hours * STUDENT_SERVICE_FEE;
+			   total += GRADUATION_FEE;
+			
+		return total;
 	}
 }

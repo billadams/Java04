@@ -1,12 +1,17 @@
 package adams.business;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
+import java.time.LocalDate;
+
 public class Tuition
 {
 	private int id;
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String dateOfBirth;
+	private LocalDate dateOfBirth;
 	private double numHours;
 	private double totalTuition;
 
@@ -16,13 +21,13 @@ public class Tuition
 		this.firstName = "";
 		this.lastName = "";
 		this.email = "";
-		this.dateOfBirth = "";
+		this.dateOfBirth = null;
 		this.numHours = 0.0;
 		this.totalTuition = 0.0;
 	}
 	
 	public Tuition(int id, String firstName, String lastName, String email,
-			String dateOfBirth, double numHours)
+			LocalDate dateOfBirth, double numHours)
 	{
 		this.id = id;
 		this.firstName = firstName;
@@ -73,12 +78,12 @@ public class Tuition
 		this.email = email;
 	}
 
-	public String getDateOfBirth()
+	public LocalDate getDateOfBirth()
 	{
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(String dateOfBirth)
+	public void setDateOfBirth(LocalDate dateOfBirth)
 	{
 		this.dateOfBirth = dateOfBirth;
 	}
@@ -103,7 +108,21 @@ public class Tuition
 		this.totalTuition = totalTuition;
 	}
 
-	
+	public static BigDecimal formatRound(double number)
+	{
+		BigDecimal decimalRound  = new BigDecimal(number);    
+		return decimalRound = decimalRound.setScale(2, RoundingMode.HALF_UP);		
+	}
+	 
+ 	public static String formatAndRound(double number)
+ 	{
+		NumberFormat num = NumberFormat.getCurrencyInstance();//dollar sign
+		//NumberFormat num = NumberFormat.getNumberInstance();//no dollar sign
+		
+		BigDecimal decimalRound  = new BigDecimal(number);
+		return num.format(decimalRound = decimalRound.setScale(2, RoundingMode.HALF_UP));
+    }
+	 	
 	@Override
 	public String toString()
 	{
@@ -115,6 +134,7 @@ public class Tuition
 		s.append("Email: " + this.email + "\n");
 		s.append("Date of birth: " + this.dateOfBirth + "\n");
 		s.append("Credit hours: " + this.numHours + "\n");
+		s.append("Total tuition: " + this.totalTuition + "\n");
 		
 		return s.toString();
 	}
