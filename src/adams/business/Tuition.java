@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public class Tuition
 {
@@ -127,17 +129,16 @@ public class Tuition
 	public String toString()
 	{
 		StringBuilder s = new StringBuilder();
+		DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
 		
 		s.append("ID: " + this.id + "\n");
 		s.append("First name: " + this.firstName + "\n");
 		s.append("Last name: " + this.lastName + "\n");
 		s.append("Email: " + this.email + "\n");
-		s.append("Date of birth: " + this.dateOfBirth + "\n");
+		s.append("Date of birth: " + dtf.format(this.dateOfBirth) + "\n");
 		s.append("Credit hours: " + this.numHours + "\n");
-		s.append("Total tuition: " + this.totalTuition + "\n");
+		s.append("Total tuition cost: " + formatAndRound(this.totalTuition) + "\n");
 		
 		return s.toString();
 	}
-
-	
 }

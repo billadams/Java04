@@ -20,11 +20,19 @@ public class Invoice
 		return lineItems;
 	}
 
+	/**
+	 * @param LineItem lineItem
+	 * @return void
+	 */
 	public void addLineItem(LineItem lineItem)
 	{
 		this.lineItems.add(lineItem);
 	}
 	
+	/**
+	 * @param double hours
+	 * @return double
+	 */
 	public double getTotal(double hours)
 	{
 		double total =  hours * COST_CREDIT_HOUR;

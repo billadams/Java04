@@ -9,6 +9,7 @@ public class Validation
 {
     private static Scanner sc = new Scanner(System.in);
     
+    
     public static void displayNewLine() 
     {
         System.out.println();
@@ -21,10 +22,14 @@ public class Validation
 
     public static String getString(String prompt) {
         System.out.print(prompt);
-        String s = sc.nextLine();        // read the whole line
+        String s = sc.nextLine();
         return s;
     }
 
+    /**
+     * @param string prompt
+     * @return integer
+     */
     public static int getInt(String prompt) 
     {
         boolean isValid = false;
@@ -43,6 +48,12 @@ public class Validation
         return i;
     }
 
+    /**
+     * @param string prompt
+     * @param integer min
+     * @param integer max
+     * @return integer
+     */
     public static int getInt(String prompt, int min, int max) 
     {
         int i = 0;
@@ -66,6 +77,10 @@ public class Validation
         return i;
     }
 
+    /**
+     * @param string prompt
+     * @return double
+     */
     public static double getDouble(String prompt) 
     {
         boolean isValid = false;
@@ -85,6 +100,12 @@ public class Validation
         return d;
     }
 
+    /**
+     * @param string prompt
+     * @param double min
+     * @param double max
+     * @return double
+     */
     public static double getDouble(String prompt, double min, double max) 
     {
         double d = 0;
@@ -107,27 +128,34 @@ public class Validation
         return d;
     }
     
+    /**
+     * @param string prompt
+     * @return date
+     */
     public static LocalDate getDate(String prompt)
     {
     	String[] columns;
     	String dateEntered = "";
     	LocalDate date = null;
-    	
     	boolean isValid = false;
+    	
     	while (isValid == false)
     	{
     		System.out.print(prompt);
     		dateEntered = sc.nextLine();
     		try
     		{	
+    			// Split the date the user entered on the forward slash, then order it 
+    			// to be properly parsed as a date object.
     			columns = dateEntered.split("/");
-    			int i = Integer.parseInt(columns[2]);
-    			if (i < 16)
+	    		date = LocalDate.parse(columns[2] + "-" + columns[0] + "-" + columns[1]);
+	    		// TODO This needs to be more realistic.
+	    		// Test for a date that is today or beyond.
+    			if (date.isAfter(LocalDate.now()))
     			{
-    				throw new DateOutOfRangeException();
+    				throw new DateOutOfRangeException(); // Custom exception
     			}
-	    		date = LocalDate.parse(20 + columns[2] + "-" + columns[0] + "-" + columns[1]);
-	    		
+    			
 	    		isValid = true;
     		} catch (DateTimeException e)
     		{
@@ -135,15 +163,12 @@ public class Validation
     		} catch (ArrayIndexOutOfBoundsException e)
     		{
     			System.out.println("Error! Please enter the date in the correct format.");
+    		} catch (DateOutOfRangeException e)
+    		{
+    			System.out.println("Error! Please enter a date in the past.");
     		}
-    		
     	}
     	   	
     	return date;
-    	
-//    	String[] months = { "January", "February", "March", "April", "May", "June", 
-//    			            "July", "August", "September", "October", "November", "December" };
-//    	
-//    	int[] daysInMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     }
  }
