@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
+import adams.ui.StringUtil;
+
 public class Tuition
 {
 	private int id;
@@ -131,13 +133,13 @@ public class Tuition
 		StringBuilder s = new StringBuilder();
 		DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
 		
-		s.append("ID: " + this.id + "\n");
-		s.append("First name: " + this.firstName + "\n");
-		s.append("Last name: " + this.lastName + "\n");
-		s.append("Email: " + this.email + "\n");
-		s.append("Date of birth: " + dtf.format(this.dateOfBirth) + "\n");
-		s.append("Credit hours: " + this.numHours + "\n");
-		s.append("Total tuition cost: " + formatAndRound(this.totalTuition) + "\n");
+		s.append(StringUtil.padWithDots("ID:", 20) + this.id + "\n");
+		s.append(StringUtil.padWithDots("First name:", 20) + this.firstName + "\n");
+		s.append(StringUtil.padWithDots("Last name:", 20) + this.lastName + "\n");
+		s.append(StringUtil.padWithDots("Email:", 20) + this.email + "\n");
+		s.append(StringUtil.padWithDots("Date of birth:", 20) + dtf.format(this.dateOfBirth) + "\n");
+		s.append(StringUtil.padWithDots("Credit hours:", 20) + this.numHours + "\n");
+		s.append(StringUtil.padWithDots("Total tuition cost:", 20) + formatAndRound(this.totalTuition) + "\n");
 		
 		return s.toString();
 	}

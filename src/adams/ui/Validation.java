@@ -150,7 +150,7 @@ public class Validation
     			columns = dateEntered.split("/");
 	    		date = LocalDate.parse(columns[2] + "-" + columns[0] + "-" + columns[1]);
 	    		// TODO This needs to be more realistic.
-	    		// Test for a date that is today or beyond.
+	    		// Make sure the date entered isn't after today.
     			if (date.isAfter(LocalDate.now()))
     			{
     				throw new DateOutOfRangeException(); // Custom exception
