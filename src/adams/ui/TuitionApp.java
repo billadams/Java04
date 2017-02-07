@@ -32,7 +32,7 @@ public class TuitionApp
 			String lastName = Validation.getString("Enter student last name: ");
 			String email = Validation.getString("Enter student email: ");
 			LocalDate dob = Validation.getDate("Enter student date of birth (mm/dd/yyyy): ");
-			double numHours = Validation.getDouble("Enter number of credit hours taken: ");
+			double numHours = Validation.getDouble("Enter number of credit hours taken: ", .99, 22.51);
 			
 			Tuition tuition = new Tuition(id, firstName, lastName, email, dob, numHours);
 			// Calculate the total cost of the tuition.
